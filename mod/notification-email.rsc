@@ -101,8 +101,11 @@
             $LogPrint warning $0 ("File '" . $File . "' does not exist, can not attach.");
           }
         }
-        /tool/e-mail/send from=[ $EMailGenerateFrom ] to=($Message->"to") cc=($Message->"cc") \
-          subject=($Message->"subject") body=($Message->"body") file=$Attach;
+        :do {
+          /tool/e-mail/send from=[ $EMailGenerateFrom ] to=($Message->"to") \
+              cc=($Message->"cc") subject=($Message->"subject") \
+              body=($Message->"body") file=$Attach;
+        } else={ }
         :local Wait true;
         :do {
           :delay 1s;
